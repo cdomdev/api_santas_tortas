@@ -9,9 +9,9 @@ export default [
         directives: {
           'connect-src': ["'self'", 'https:'],
           'img-src': ["'self'", 'data:', 'blob:', 'dl.airline.com', 'res.cloudinary.com'],
-          'media-src': ["'self'", 'data:', 'blob:','dl.airline.com', 'res.cloudinary.com'],
+          'media-src': ["'self'", 'data:', 'blob:', 'dl.airline.com', 'res.cloudinary.com'],
           'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-          upgradeInsecureRequest: null
+          'upgrade-insecure-requests': null 
         },
       },
     },
