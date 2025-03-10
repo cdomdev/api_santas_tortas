@@ -50,6 +50,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::category.category"
+    },
+    "discount": {
+      "type": "integer",
+      "required": true,
+      "default": 0
     }
   }
 }
