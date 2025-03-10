@@ -1,9 +1,9 @@
 export default ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
   port: env.int('PORT', 10000),
-  url: env('PUBLIC_URL', 'https://apisantastortas-production.up.railway.app'),
+  url: env('PUBLIC_URL', 'http://localhost:1337'),
   admin: {
-    url: env('PUBLIC_URL', 'https://apisantastortas-production.up.railway.app'),
+    url: env('PUBLIC_URL', 'http://localhost:1337'),
     serveAdminPanel: true,
   },
   app: {

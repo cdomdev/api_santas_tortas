@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "stock": {
+      "type": "integer",
+      "required": true,
+      "default": 1
+    },
+    "creationDate": {
+      "type": "date",
+      "required": true
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    }
+  }
+}
