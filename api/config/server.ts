@@ -1,11 +1,6 @@
 export default ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 10000),
-  url: env('PUBLIC_URL', 'PUCLI_URL'),
-  admin: {
-    url: env('PUBLIC_URL', `PUBLIC_URL/admin`),
-    serveAdminPanel: true,
-  },
+  host: env('HOST', 'PUBLIC_HOST'),
+  port: env.int('PORT', 1337),
   app: {
     keys: env.array('APP_KEYS'),
   },

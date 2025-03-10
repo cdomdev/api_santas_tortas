@@ -1,26 +1,37 @@
 export default [
-  'strapi::logger',
-  'strapi::errors',
+  "strapi::logger",
+  "strapi::errors",
   {
-    name: 'strapi::security',
+    name: "strapi::security",
     config: {
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'dl.airline.com', 'res.cloudinary.com'],
-          'media-src': ["'self'", 'data:', 'blob:', 'dl.airline.com', 'res.cloudinary.com'],
-          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-          'upgrade-insecure-requests': null 
+          "connect-src": ["'self'", "https:"],
+          "img-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "dl.airline.com",
+            "res.cloudinary.com",
+          ],
+          "media-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "dl.airline.com",
+            "res.cloudinary.com",
+          ],
+          "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
         },
       },
     },
   },
-  'strapi::cors',
-  'strapi::poweredBy',
-  'strapi::query',
-  'strapi::body',
-  'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
+  "strapi::cors",
+  "strapi::poweredBy",
+  "strapi::query",
+  "strapi::body",
+  "strapi::session",
+  "strapi::favicon",
+  "strapi::public",
 ];
