@@ -1,4 +1,4 @@
-const { HOST_PRODUCTION } = process.env;
+const { PUBLIC_URL } = process.env;
 export default [
   "strapi::logger",
   "strapi::errors",
@@ -35,7 +35,7 @@ export default [
       cors: {
         enabled: true,
         credentials: true, 
-        origin: HOST_PRODUCTION ? [HOST_PRODUCTION] : "*",
+        origin: PUBLIC_URL ? [PUBLIC_URL] : "*",
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       },
     },
