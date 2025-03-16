@@ -31,13 +31,11 @@ export default [
   },
   {
     name: "strapi::cors",
-    settings: {
-      cors: {
-        enabled: true,
-        credentials: true, 
-        origin: PUBLIC_URL ? [PUBLIC_URL] : "*",
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-      },
+    config: {
+      enabled: true,
+      credentials: true,
+      origin: PUBLIC_URL ? [PUBLIC_URL] : "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     },
   },
   "strapi::poweredBy",
