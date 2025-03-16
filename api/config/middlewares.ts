@@ -1,3 +1,4 @@
+const { HOST_PRODUCTION } = process.env;
 export default [
   "strapi::logger",
   "strapi::errors",
@@ -23,11 +24,22 @@ export default [
             "res.cloudinary.com",
           ],
           "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+          "frame-src": ["'self'", "editor.unlayer.com"],
         },
       },
     },
   },
-  "strapi::cors",
+  {
+    name: "strapi::cors",
+    settings: {
+      cors: {
+        enabled: true,
+        credentials: true, 
+        origin: HOST_PRODUCTION ? [HOST_PRODUCTION] : "*",
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      },
+    },
+  },
   "strapi::poweredBy",
   "strapi::query",
   "strapi::body",
