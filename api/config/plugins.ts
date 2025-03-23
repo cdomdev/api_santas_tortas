@@ -26,7 +26,8 @@ export default ({ env }) => ({
           user: env("SMTP_USER", ""),
           pass: env("SMTP_PASS", ""),
         },
-        ignoreTLS: true,
+        secure: false, 
+        requireTLS: true,
       },
       settings: {
         defaultFrom: env("EMAIL_FROM", "no-reply@tu-dominio.com"),

@@ -1,9 +1,10 @@
+
 export default {
     routes: [
       {
         method: "POST",
-        path: "/auth/google",
-        handler: "auth.googleAuth",
+        path: "/custom-auth/register",
+        handler: "custom-auth.register",
         config: {
           auth: false, 
         },
