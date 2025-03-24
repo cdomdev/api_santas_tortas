@@ -4,14 +4,16 @@
   "info": {
     "singularName": "subscriber",
     "pluralName": "subscribers",
-    "displayName": "subscriber"
+    "displayName": "subscriber",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
     "email": {
-      "type": "email"
+      "type": "email",
+      "unique": true
     },
     "active": {
       "type": "boolean"
