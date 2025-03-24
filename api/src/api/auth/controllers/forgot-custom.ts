@@ -35,9 +35,11 @@ module.exports = {
       }
     );
 
+    // let hostTest = "http://localhost:4321";
     //   contruir enlace de recuperación
 
-    const resetPasswordUrl = `${process.env.DOMAIN_CLIENT}/auth/reset-password?code=${resetPasswordToken}`;
+    const resetPasswordUrl = `${process.env.DOMAIN_CLIENT}/restablecer-contrasenia/${resetPasswordToken}`;
+    // const resetPasswordUrl = `${hostTest}/restablecer-contrasenia/${resetPasswordToken}`;
 
     // enviar correo electrónico
 
