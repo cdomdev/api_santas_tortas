@@ -442,6 +442,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
 export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
   collectionName: 'subscribers';
   info: {
+    description: '';
     displayName: 'subscriber';
     pluralName: 'subscribers';
     singularName: 'subscriber';
@@ -454,7 +455,7 @@ export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    email: Schema.Attribute.Email;
+    email: Schema.Attribute.Email & Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
