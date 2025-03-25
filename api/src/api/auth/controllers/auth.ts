@@ -1,4 +1,6 @@
 import { sendMail } from "../../../emails/transporter";
+import forgot from "../helpers/forgot";
+import crypto from "crypto";
 
 interface GoogleTokenInfo {
   audience?: string;
@@ -11,6 +13,7 @@ interface GoogleUserInfo {
 }
 
 export default () => ({
+  // controlador para autenticar con Google
   async googleAuth(ctx) {
     try {
       const { token } = ctx.request.body;
@@ -102,5 +105,131 @@ export default () => ({
       console.error("Error en la autenticación con Google:", error);
       return ctx.internalServerError("No se pudo autenticar con Google");
     }
+  },
+
+  // controlador para registrar un usuario personalizado, para agregar el envio de email
+  async registerCustom(ctx: any) {
+    try {
+      const { email, password, username } = ctx.request.body;
+
+
+      if (!email || !password || !username) {
+        return ctx.badRequest("Faltan datos obligatorios.");
+      }
+
+      const existingUser = await strapi.db
+        .query("plugin::users-permissions.user")
+        .findOne({
+          where: { email },
+        });
+
+      if (existingUser) {
+        return ctx.conflict("El correo ya está registrado.");
+      }
+
+      const newUser = await strapi.entityService.create(
+        "plugin::users-permissions.user",
+        {
+          data: {
+            email,
+            username,
+            password,
+            confirmed: true,
+            role: 1,
+            provider: "local",
+          },
+        }
+      );
+
+      await sendMail({
+        to: email,
+        subject: "Bienvenido a Santas Tortas 🎂",
+        templateName: "welcome",
+        variables: {
+          nombre: username,
+          url: "https://santas-tortas.vercol.app",
+        },
+      });
+
+      return ctx.send({
+        message: "Usuario registrado con éxito",
+        user: newUser,
+      });
+    } catch (error) {
+      console.error("❌ Error en el registro:", error);
+      return ctx.internalServerError("Error al registrar usuario.");
+    }
+  },
+
+  //  controlador para enviar el correo de recuperación
+  async forgot(ctx: any) {
+    const { email } = ctx.request.body;
+
+    if (!email) {
+      return ctx.badRequest("El correo electrónico es requerido");
+    }
+
+    // buscar usuario
+
+    const user = await strapi
+      .query("plugin::users-permissions.user")
+      .findOne({ where: { email } });
+
+    if (!user) {
+      return ctx.badRequest("El correo electrónico no está registrado");
+    }
+
+    // generar token
+
+    const resetPasswordToken = crypto.randomBytes(20).toString("hex");
+
+    // actualizar usuario con el token
+
+    await strapi.entityService.update(
+      "plugin::users-permissions.user",
+      user.id,
+      {
+        data: {
+          resetPasswordToken: resetPasswordToken,
+        },
+      }
+    );
+
+    let hostTest = "http://localhost:4321";
+    //   contruir enlace de recuperación
+
+    // const resetPasswordUrl = `${process.env.DOMAIN_CLIENT}/restablecer-contrasenia/${resetPasswordToken}`;
+    const resetPasswordUrl = `${hostTest}/restablecer-contrasenia/${resetPasswordToken}`;
+
+    // enviar correo electrónico
+
+    await sendMail({
+      to: email,
+      subject: "Recuperación de contraseña",
+      templateName: "forgot",
+      variables: { nombre: user.username, url: resetPasswordUrl },
+    });
+
+    return ctx.send({
+      message: "Correo electrónico de recuperacion enviado con éxito",
+      username: user.username,
+      email: user.email,
+    });
+  },
+
+  // controlador para resetear la contraseña
+  async reset(ctx: any) {
+    // validar token
+    await forgot.validateToken(ctx);
+
+    //  validar contraseñas
+    await forgot.validatePassword(ctx);
+
+    //  actualizar contraseña
+    const response = await forgot.updateUser(ctx);
+
+    return ctx.send({
+      response
+    });
   },
 });
