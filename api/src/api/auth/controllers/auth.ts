@@ -199,7 +199,7 @@ export default () => ({
     //   contruir enlace de recuperación
 
     // const resetPasswordUrl = `${process.env.DOMAIN_CLIENT}/restablecer-contrasenia/${resetPasswordToken}`;
-    const resetPasswordUrl = `${hostTest}/restablecer-contrasenia/${resetPasswordToken}`;
+    const resetPasswordUrl = `${hostTest}/restablecer-contrasenia/recovery?code=${resetPasswordToken}`;
 
     // enviar correo electrónico
 

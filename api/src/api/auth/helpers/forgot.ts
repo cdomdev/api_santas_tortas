@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { sendMail } from "../../../emails/transporter";
 import user from "./user";
 
@@ -37,9 +36,6 @@ export default {
     // Buscar el usuario por resetPasswordToken
     const dataUser = await user.findUser("resetPasswordToken", code, ctx);
 
-    // Hashear la nueva contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Actualizar la contraseña en la base de datos
     const update = await strapi.plugins["users-permissions"].services.user.edit(
       dataUser.id,
@@ -49,7 +45,6 @@ export default {
       }
     );
 
-    console.log("🔐 Contraseña actualizada con éxito", update);
     // Notificar al usuario por correo
     await sendMail({
       to: dataUser.email,
