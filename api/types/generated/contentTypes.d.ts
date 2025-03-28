@@ -397,6 +397,82 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
+  collectionName: 'orders';
+  info: {
+    description: '';
+    displayName: 'order';
+    pluralName: 'orders';
+    singularName: 'order';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    reference_payments: Schema.Attribute.String & Schema.Attribute.Required;
+    shipping_cost: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    status_order: Schema.Attribute.String & Schema.Attribute.Required;
+    total_payment: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiPersonalizedOrderPersonalizedOrder
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'personalized_orders';
+  info: {
+    description: '';
+    displayName: 'personalized_order';
+    pluralName: 'personalized-orders';
+    singularName: 'personalized-order';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    details_user: Schema.Attribute.String;
+    detalles: Schema.Attribute.Text;
+    email: Schema.Attribute.Email;
+    fecha_estimada: Schema.Attribute.Date;
+    idea_de_referencia: Schema.Attribute.Media<'images' | 'files', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personalized-order.personalized-order'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    porciones: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    publishedAt: Schema.Attribute.DateTime;
+    relleno: Schema.Attribute.String;
+    sabor: Schema.Attribute.String;
+    surname: Schema.Attribute.String;
+    tematica: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
@@ -943,6 +1019,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
@@ -978,6 +1055,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::category.category': ApiCategoryCategory;
+      'api::order.order': ApiOrderOrder;
+      'api::personalized-order.personalized-order': ApiPersonalizedOrderPersonalizedOrder;
       'api::product.product': ApiProductProduct;
       'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'plugin::content-releases.release': PluginContentReleasesRelease;

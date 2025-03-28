@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personalized_orders",
+  "info": {
+    "singularName": "personalized-order",
+    "pluralName": "personalized-orders",
+    "displayName": "personalized_order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "tematica": {
+      "type": "string"
+    },
+    "relleno": {
+      "type": "string"
+    },
+    "sabor": {
+      "type": "string"
+    },
+    "porciones": {
+      "type": "integer",
+      "default": 1
+    },
+    "fecha_estimada": {
+      "type": "date"
+    },
+    "idea_de_referencia": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "detalles": {
+      "type": "text"
+    },
+    "email": {
+      "type": "email"
+    },
+    "name": {
+      "type": "string"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "details_user": {
+      "type": "string"
+    }
+  }
+}
