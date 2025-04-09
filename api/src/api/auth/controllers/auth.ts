@@ -112,7 +112,6 @@ export default () => ({
     try {
       const { email, password, username } = ctx.request.body;
 
-
       if (!email || !password || !username) {
         return ctx.badRequest("Faltan datos obligatorios.");
       }
@@ -195,11 +194,10 @@ export default () => ({
       }
     );
 
-    let hostTest = "http://localhost:4321";
     //   contruir enlace de recuperación
+    const DOMAIN = process.env.DOMAIN_CLIENT as string;
 
-    // const resetPasswordUrl = `${process.env.DOMAIN_CLIENT}/restablecer-contrasenia/${resetPasswordToken}`;
-    const resetPasswordUrl = `${hostTest}/restablecer-contrasenia/recovery?code=${resetPasswordToken}`;
+    const resetPasswordUrl = `${DOMAIN}/restablecer-contrasenia/recovery?code=${resetPasswordToken}`;
 
     // enviar correo electrónico
 
@@ -229,7 +227,7 @@ export default () => ({
     const response = await forgot.updateUser(ctx);
 
     return ctx.send({
-      response
+      response,
     });
   },
 });

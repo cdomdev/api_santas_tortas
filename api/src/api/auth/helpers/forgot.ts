@@ -47,6 +47,7 @@ export default {
 
     // Notificar al usuario por correo
     await sendMail({
+      isAdmin: false,
       to: dataUser.email,
       subject: "Cambio de contraseña exitoso",
       templateName: "resetSuccess",
