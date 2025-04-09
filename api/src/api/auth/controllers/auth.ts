@@ -85,6 +85,7 @@ export default () => ({
         // enviar el email de bienvenida
 
         sendMail({
+          isAdmin: false,
           to: email,
           subject: "Bienvenido a Santas Tortas 🎂",
           templateName: "welcome",
