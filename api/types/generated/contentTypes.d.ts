@@ -415,7 +415,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
-    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     reference_payments: Schema.Attribute.String & Schema.Attribute.Required;
     shipping_cost: Schema.Attribute.Decimal & Schema.Attribute.Required;
@@ -502,6 +502,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
+    orders: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
