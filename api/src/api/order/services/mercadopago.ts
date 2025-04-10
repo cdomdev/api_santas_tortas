@@ -5,7 +5,7 @@ const mercadopagoToken = process.env.ACCESSTOKEN_MERCADOPAGO;
 
 // Configura las credenciales de Mercado Pago
 export const client = new MercadoPagoConfig({
-  accessToken: mercadopagoToken.trim(),
+  accessToken: mercadopagoToken,
 });
 
 const HOST = process.env.DOMAIN_CLIENT;

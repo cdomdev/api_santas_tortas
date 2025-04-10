@@ -1,5 +1,3 @@
-import { Console } from "console";
-import mercadopagoService from "./mercadopago";
 
 export default {
   createPreferenceMercadoPago: async (ctx: any, data: any, strapi) => {
